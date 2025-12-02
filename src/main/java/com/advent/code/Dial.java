@@ -5,6 +5,7 @@ public class Dial {
     private final int MIN_VALUE = 0;
     private final int MAX_VALUE = 99;
     private int position = 50;
+    private int zeroIndexCount = 0;
 
     public int getPosition() {
         return position;
@@ -12,6 +13,10 @@ public class Dial {
 
     private void setPosition(int position) {
         this.position = position;
+    }
+
+    public int getZeroIndexCount() {
+        return zeroIndexCount;
     }
 
     /**
@@ -31,6 +36,9 @@ public class Dial {
             } else {
                 setPosition(position + 1);
             }
+            if (getPosition() == 0) {
+                zeroIndexCount++;
+            }
             amount--;
         }
         return getPosition();
@@ -43,6 +51,9 @@ public class Dial {
                 setPosition(MAX_VALUE);
             } else {
                 setPosition(position - 1);
+            }
+            if (getPosition() == 0) {
+                zeroIndexCount++;
             }
             amount--;
         }

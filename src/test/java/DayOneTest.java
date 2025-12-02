@@ -1,5 +1,6 @@
 import com.advent.code.Dial;
 import com.advent.code.DialParser;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -4672,6 +4673,8 @@ class DayOneTest {
                 });
 
         assertEquals(1139, zeroCount.get());
+        //Part Two
+        assertEquals(6684, dial.getZeroIndexCount());
     }
 
     @Test
@@ -5022,5 +5025,40 @@ class DayOneTest {
                 });
 
         assertEquals(73, zeroCount.get());
+    }
+
+    @Nested
+    class PartTwo {
+        @Test
+        void basicTest() {
+            Dial dial = new Dial();
+            DialParser.parseDialInstructions("""
+                            L68
+                            L30
+                            R48
+                            L5
+                            R60
+                            L55
+                            L1
+                            L99
+                            R14
+                            L82
+                            """)
+                    .forEach(dial::rotate);
+
+            assertEquals(6, dial.getZeroIndexCount());
+        }
+
+        @Test
+        void wrapTest() {
+            Dial dial = new Dial();
+            DialParser.parseDialInstructions("""
+                            R1000
+                            """)
+                    .forEach(dial::rotate);
+
+            assertEquals(10, dial.getZeroIndexCount());
+            assertEquals(50, dial.getPosition());
+        }
     }
 }
