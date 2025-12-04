@@ -35,4 +35,29 @@ public record BatteryBank(String value) {
 
         return tensPlace + firstPlace;
     }
+
+
+    public long getMaxJoltageTwo() {
+        final int k = 12;
+        int n = value.length();
+        int toRemove = n - k;
+
+        StringBuilder stack = new StringBuilder();
+
+        for (int i = 0; i < n; i++) {
+            char c = value.charAt(i);
+
+            while (toRemove > 0 && !stack.isEmpty() && stack.charAt(stack.length() - 1) < c) {
+                stack.deleteCharAt(stack.length() - 1);
+                toRemove--;
+            }
+
+            stack.append(c);
+        }
+
+        String result = stack.substring(0, k);
+
+        return Long.parseLong(result);
+    }
+
 }
